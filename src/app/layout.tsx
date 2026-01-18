@@ -1,5 +1,6 @@
 import "./globals.css";
 import Navbar from "@/app/components/navbar";
+import Footer from '@/app/components/footer'
 import { Raleway, IBM_Plex_Mono } from "next/font/google";
 
 // Fonts
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={`${raleway.variable} ${ibmplex.variable} bg-[var(--base)] text-white`}>
         <Navbar />
         <main className="pt-16">{children}</main>
+        <Footer />
       </body>
     </html>
   );

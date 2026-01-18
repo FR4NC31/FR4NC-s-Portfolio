@@ -14,7 +14,7 @@ h1 {
   font-family: var(--font-raleway), sans-serif;
 }
 
-a, p {
+a, p, .navbtn {
    font-family: var(--font-ibmplex)
 }
 

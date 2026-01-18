@@ -1,47 +1,86 @@
-import Image from 'next/image'
+"use client";
 
+import Image from 'next/image'
+import TextType from '@/app/components/animation/TextType'
+import ShinyText from '@/app/components/animation/ShinyText'
 
 export default function Home() {
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const navbarHeight = 80; // Height of your navbar
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
    <div>
     <section
-  id="home"
-  className="flex flex-col md:flex-row items-center justify-center gap-10 my-40 px-4 md:px-20"
->
-  {/* Text Content */}
-  <div className="flex flex-col items-start gap-6 max-w-xl">
-    <p>Hello</p>
-    <h1 className="text-white text-5xl md:text-6xl font-bold leading-tight">
-      I&#x275B;m Francis Edgard <br />
-      O. Ibañez
-    </h1>
+      id="home"
+      className="min-h-screen flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 lg:gap-12 xl:gap-20 py-20 lg:py-0 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 max-w-[1400px] mx-auto"
+    >
+  
+      {/* Text Content */}
+      <div className="flex flex-col items-center lg:items-start gap-4 sm:gap-5 lg:gap-6 w-full lg:flex-1">
+        <p className='text-[var(--text)] text-sm sm:text-base'>Hello, I&#x275B;m</p>
+        <TextType 
+          text={["Francis Edgard O. Ibañez"]}
+          typingSpeed={100}
+          pauseDuration={1500}
+          showCursor={true}
+          className='text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl text-center lg:text-left'
+        />
+        <div className='flex flex-col items-center lg:flex-row lg:items-baseline gap-1 lg:gap-2'>
+          <h1 className='text-xl sm:text-2xl text-white'>Aspiring</h1>
+          <ShinyText
+            text={"Front-end Web and Mobile Developer"}
+            speed={3}
+            color="#4fa0de"
+            shineColor="#b1d7fb"
+            spread={130}
+            className='text-lg sm:text-xl md:text-2xl text-center lg:text-left'
+          />
+        </div>
 
-    <p className="text-[var(--text)] text-lg md:text-xl leading-relaxed">
-      A 4th year BSIT student at Colegio de Montalban seeking an On-the-Job
-      Training &#x2768;OJT&#x2769; opportunity as a Web and Mobile Front-End
-      Developer. I am skilled in building responsive, user-friendly interfaces
-      and eager to apply my academic knowledge while continuously improving my
-      skills in a professional environment.
-    </p>
+        <p className="text-[var(--text)] text-center lg:text-left text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-xl">
+          I&apos;m an aspiring Web and Mobile Front-End Developer with a strong passion for building responsive and user-friendly interfaces. I aim to apply my foundational knowledge to real-world projects while continuously improving my technical skills and growing in a professional development environment.
+        </p>
 
-    <button className="px-6 py-3 bg-white text-black rounded-lg font-medium hover:opacity-90 transition">
-      <p className='font-bold'>View my projects</p>
-    </button>
-  </div>
+        <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-5 w-full sm:w-auto mt-2'>
+          <button 
+            onClick={() => scrollToSection("projects")}
+            className="w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 bg-white text-black rounded-lg font-medium hover:opacity-90 transition text-sm sm:text-base"
+          >
+            <p className='font-bold'>View my projects</p>
+          </button>
+          <button className='w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 bg-transparent border-2 border-white text-white rounded-lg font-medium hover:bg-white hover:text-black transition text-sm sm:text-base'>
+            <p className='font-bold'>Download CV</p>
+          </button>
+        </div>
+      </div>
 
-  {/* Profile Image */}
-  <Image
-    src="/profile.jpg"
-    width={520}
-    height={520}
-    className="rounded-full object-cover"
-    alt="Francis Edgard profile photo"
-    priority
-  />
-</section>
+      {/* Profile Image - Hidden on mobile (below 1024px), visible on lg+ */}
+      <Image
+        src="/profile.jpg"
+        width={450}
+        height={450}
+        className="rounded-full object-cover hidden lg:block lg:w-[350px] lg:h-[350px] xl:w-[450px] xl:h-[450px]"
+        alt="Francis Edgard profile photo"
+        priority
+      />
+    </section>
 
     <section id="skills" className="bg-white w-full h-238">
-      <h1 className="text-black mt-52">Hello World</h1>
+      <h1 className="text-black pt-20 text-center text-3xl">My Skills</h1>
+    </section>
+    <section id='projects' className='h-238'>
+      <h1 className="text-white pt-20 text-center text-3xl">Projects Section</h1>
     </section>
    </div>
   );
