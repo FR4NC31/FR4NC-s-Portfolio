@@ -46,7 +46,7 @@ export default function Navbar() {
           <li>
             <button
               onClick={() => scrollToSection("skills")}
-              className="text-[var(--text)] navbtn hover:text-white transition-colors"
+              className="text-[var(--text)] navbtn cursor-pointer hover:text-white transition-colors"
             >
               Skills
             </button>
@@ -54,7 +54,7 @@ export default function Navbar() {
           <li>
             <button
               onClick={() => scrollToSection("projects")}
-              className="text-[var(--text)] navbtn hover:text-white transition-colors"
+              className="text-[var(--text)] cursor-pointer navbtn hover:text-white transition-colors"
             >
               Projects
             </button>
@@ -62,7 +62,7 @@ export default function Navbar() {
           <li>
             <button
               onClick={() => scrollToSection("experiences")}
-              className="text-[var(--text)] navbtn hover:text-white transition-colors"
+              className="text-[var(--text)] cursor-pointer navbtn hover:text-white transition-colors"
             >
               Experiences
             </button>
@@ -70,7 +70,7 @@ export default function Navbar() {
           <li>
             <button
               onClick={() => scrollToSection("contact")}
-              className="text-[var(--text)] navbtn hover:text-white transition-colors"
+              className="text-[var(--text)] cursor-pointer navbtn hover:text-white transition-colors"
             >
               Contact
             </button>

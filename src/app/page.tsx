@@ -23,7 +23,7 @@ export default function Home() {
    <div>
     <section
       id="home"
-      className="min-h-screen flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 lg:gap-12 xl:gap-20 py-20 lg:py-0 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 max-w-[1400px] mx-auto"
+      className="min-h-screen flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 lg:gap-12 xl:gap-20 pb-50 lg:pt-0 lg:pb-30 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 max-w-[1400px] mx-auto"
     >
   
       {/* Text Content */}
@@ -80,6 +80,12 @@ export default function Home() {
       <h1 className="text-black pt-20 text-center text-3xl">My Skills</h1>
     </section>
     <section id='projects' className='h-238'>
+      <h1 className="text-white pt-20 text-center text-3xl">Projects Section</h1>
+    </section>
+    <section id='experiences' className='h-238 bg-white'>
+      <h1 className="text-black pt-20 text-center text-3xl">Projects Section</h1>
+    </section>
+    <section id='contact' className='h-238'>
       <h1 className="text-white pt-20 text-center text-3xl">Projects Section</h1>
     </section>
    </div>
