@@ -78,15 +78,16 @@ export default function Home() {
 
     <section id="skills" className="bg-white w-full h-238">
       <h1 className="text-black pt-20 text-center text-3xl">My Skills</h1>
+      <p className='text-black'>this are my skills and tools that i used it</p>
     </section>
     <section id='projects' className='h-238'>
-      <h1 className="text-white pt-20 text-center text-3xl">Projects Section</h1>
+      <h1 className="text-white pt-20 text-center text-3xl">My Projects</h1>
     </section>
     <section id='experiences' className='h-238 bg-white'>
-      <h1 className="text-black pt-20 text-center text-3xl">Projects Section</h1>
+      <h1 className="text-black pt-20 text-center text-3xl">My Experiences</h1>
     </section>
     <section id='contact' className='h-238'>
-      <h1 className="text-white pt-20 text-center text-3xl">Projects Section</h1>
+      <h1 className="text-white pt-20 text-center text-3xl">Contact Me</h1>
     </section>
    </div>
   );
