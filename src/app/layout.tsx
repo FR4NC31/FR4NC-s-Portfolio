@@ -23,6 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <title>FR4NC</title>
       <body className={`${raleway.variable} ${ibmplex.variable} bg-[var(--base)] text-white`}>
         <Navbar />
         <main className="pt-16">{children}</main>
