@@ -8,16 +8,42 @@
 
 body {
   font-family: var(--font-raleway);
+  background-color: var(--base);
+  color: white;
 }
 
 h1 {
   font-family: var(--font-raleway), sans-serif;
 }
 
-a, p, .navbtn {
-   font-family: var(--font-ibmplex)
+a,
+p,
+.navbtn {
+  font-family: var(--font-ibmplex)
 }
 
 .title {
   font-family: var(--font-raleway);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 3D Carousel Helpers */
+.perspective-2000 {
+  perspective: 2000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
 }

@@ -1,17 +1,20 @@
 "use client";
 
+import React, { useState } from 'react'
 import Image from 'next/image'
 import TextType from '@/app/components/animation/TextType'
 import ShinyText from '@/app/components/animation/ShinyText'
 import SkillCard from '@/app/components/SkillCard'
 import ScrollReveal from '@/app/components/animation/ScrollReveal'
-import ExperienceCard from '@/app/components/ExperienceCard'
+import DiscCarousel from '@/app/components/DiscCarousel'
 
 export default function Home() {
+  const [activeCategory, setActiveCategory] = useState<"All" | "Website" | "Mobile">("All");
+
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      const navbarHeight = 80; // Height of your navbar
+      const navbarHeight = 80;
       const elementPosition = el.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
 
@@ -22,14 +25,55 @@ export default function Home() {
     }
   };
 
+  const projects = [
+    {
+      title: "Orion Analytics Dashboard",
+      description: "A premium data visualization platform with real-time tracking, interactive charts, and sleek dark mode interface.",
+      category: "Website" as const,
+      image: "/website_project_mockup.png",
+      tags: ["React", "Next.js", "Tailwind CSS", "Chart.js"],
+      link: "https://example.com",
+      repo: "https://github.com",
+    },
+    {
+      title: "Flex Fitness Tracker",
+      description: "A comprehensive mobile health application focusing on biometric tracking, workout logging, and goal management.",
+      category: "Mobile" as const,
+      image: "/mobile_project_mockup.png",
+      tags: ["React Native", "Expo", "TypeScript", "Redux"],
+      link: "https://example.com",
+      repo: "https://github.com",
+    },
+    {
+      title: "Pulse Social Media",
+      description: "Modern social platform featuring real-time messaging, content sharing, and personalized discovery feeds.",
+      category: "Website" as const,
+      image: "/website_project_mockup.png",
+      tags: ["Next.js", "Firebase", "Framer Motion", "Tailwind"],
+      link: "https://example.com",
+      repo: "https://github.com",
+    },
+    {
+      title: "Zen Meditation App",
+      description: "Mobile application designed for mindfulness, featuring guided audio sessions and soothing atmospheric soundscapes.",
+      category: "Mobile" as const,
+      image: "/mobile_project_mockup.png",
+      tags: ["React Native", "Expo", "GSAP", "Audio Engine"],
+      link: "https://example.com",
+      repo: "https://github.com",
+    }
+  ];
+
+  const filteredProjects = activeCategory === "All"
+    ? projects
+    : projects.filter(p => p.category === activeCategory);
+
   return (
     <div>
       <section
         id="home"
         className="min-h-screen flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 lg:gap-12 xl:gap-20 pb-50 lg:pt-0 lg:pb-30 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 max-w-[1400px] mx-auto"
       >
-
-        {/* Text Content */}
         <div className="flex flex-col items-center lg:items-start gap-4 sm:gap-5 lg:gap-6 w-full lg:flex-1">
           <ScrollReveal delay={0.1}>
             <p className='text-[var(--text)] text-sm sm:text-base'>Hello, I&#x275B;m</p>
@@ -78,7 +122,6 @@ export default function Home() {
           </ScrollReveal>
         </div>
 
-        {/* Profile Image - Hidden on mobile (below 1024px), visible on lg+ */}
         <ScrollReveal delay={0.3} direction="right">
           <Image
             src="/profile.jpg"
@@ -93,7 +136,6 @@ export default function Home() {
 
       <section id="skills" className="bg-gradient-to-b from-white to-gray-50 w-full min-h-screen py-20 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
         <div className="max-w-[1400px] mx-auto">
-          {/* Section Header */}
           <ScrollReveal>
             <div className="text-center mb-16">
               <h1 className="text-black text-4xl sm:text-5xl font-bold mb-4">
@@ -105,7 +147,6 @@ export default function Home() {
             </div>
           </ScrollReveal>
 
-          {/* Skills Grid */}
           <ScrollReveal delay={0.2}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
               <SkillCard
@@ -173,56 +214,48 @@ export default function Home() {
           </ScrollReveal>
         </div>
       </section>
-      <section id='projects' className='min-h-screen py-20 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20'>
-        <ScrollReveal>
-          <h1 className="text-white text-4xl sm:text-5xl font-bold text-center mb-8">My Projects</h1>
-          <p className="text-gray-400 text-lg sm:text-xl text-center max-w-2xl mx-auto">Check out some of my recent work</p>
-        </ScrollReveal>
-      </section>
-      <section id='experiences' className='min-h-screen py-20 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 bg-gradient-to-b from-gray-50 to-white'>
+
+      <section id='projects' className='min-h-screen py-32 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 overflow-hidden bg-black/50'>
         <div className="max-w-[1400px] mx-auto">
           <ScrollReveal>
-            <h1 className="text-black text-4xl sm:text-5xl font-bold text-center mb-8">My Experiences</h1>
-            <p className="text-gray-600 text-lg sm:text-xl text-center max-w-2xl mx-auto mb-16">
-              My professional journey and growth in the tech industry
-            </p>
+            <div className="text-center mb-16">
+              <h1 className="text-white text-4xl sm:text-5xl font-bold mb-6">Featured Projects</h1>
+              <p className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-10">
+                Explore a collection of my latest work, ranging from complex web platforms to intuitive mobile experiences.
+              </p>
+
+              <div className="flex items-center justify-center gap-2 sm:gap-4 p-1.5 bg-white/5 border border-white/10 rounded-xl w-fit mx-auto backdrop-blur-sm">
+                {(["All", "Website", "Mobile"] as const).map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${activeCategory === cat
+                      ? "bg-white text-black shadow-lg"
+                      : "text-gray-400 hover:text-white"
+                      }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
-            <ExperienceCard
-              title="Full-Stack Developer Intern"
-              company="TechInnovate Solutions"
-              period="June 2025 - Present"
-              description={[
-                "Developing and maintaining modern web applications using Next.js and React.",
-                "Collaborating with senior developers to implement responsive UI/UX designs.",
-                "Optimizing application performance and ensuring cross-browser compatibility.",
-                "Participating in code reviews and daily stand-up meetings."
-              ]}
-              skills={["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"]}
-              delay={0.2}
-            />
+          {/* New 3D Disc Carousel */}
+          <ScrollReveal delay={0.2}>
+            <DiscCarousel projects={filteredProjects} />
+          </ScrollReveal>
 
-            <ExperienceCard
-              title="Junior Front-End Developer"
-              company="Creative Digital Agency"
-              period="Jan 2024 - May 2025"
-              description={[
-                "Led the development of multiple client-facing portfolio websites.",
-                "Specialized in creating pixel-perfect, interactive mobile-first interfaces.",
-                "Integrated third-party APIs and services for enhanced functionality.",
-                "Improved website SEO and loading speeds by over 40%."
-              ]}
-              skills={["React JS", "JavaScript", "GSAP", "Framer Motion", "Git"]}
-              delay={0.4}
-            />
-          </div>
+          <p className="text-center text-gray-500 text-sm mt-12 italic">
+            Spin the disc to explore my projects
+          </p>
         </div>
       </section>
-      <section id='contact' className='min-h-screen py-20 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20'>
+
+      <section id='contact' className='min-h-screen py-20 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 bg-white'>
         <ScrollReveal>
-          <h1 className="text-white text-4xl sm:text-5xl font-bold text-center mb-8">Contact Me</h1>
-          <p className="text-gray-400 text-lg sm:text-xl text-center max-w-2xl mx-auto">Let's work together on your next project</p>
+          <h1 className="text-black text-4xl sm:text-5xl font-bold text-center mb-8">Contact Me</h1>
+          <p className="text-gray-600 text-lg sm:text-xl text-center max-w-2xl mx-auto">Let's work together on your next project</p>
         </ScrollReveal>
       </section>
     </div>
