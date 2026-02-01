@@ -120,44 +120,58 @@ export default function Navbar() {
   ];
 
   return (
-    <nav ref={navRef} className="fixed top-0 left-1/2 -translate-x-1/2 w-[calc(90vw-32px)] min-w-[320px] max-w-[1600px] bg-[var(--primary)] rounded-b-2xl shadow-md z-50">
+    <nav
+      ref={navRef}
+      className="fixed top-0 left-1/2 -translate-x-1/2 w-[calc(90vw-32px)] min-w-[320px] max-w-[1600px] bg-[var(--base)]/80 backdrop-blur-xl border-b border-x border-white/5 rounded-b-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.3)] z-50 pointer-events-auto"
+    >
       {/* NAV CONTENT */}
-      <div className="h-20 px-4 flex items-center justify-between">
+      <div className="h-20 px-6 sm:px-10 flex items-center justify-between">
 
         {/* LOGO */}
         <button
           ref={logoRef}
           onClick={() => scrollToSection("home")}
           aria-label="Go to home"
-          className="text-white ml-2 lg:ml-10 text-4xl font-bold cursor-pointer hover:opacity-80 transition-opacity"
+          className="text-white text-3xl font-black tracking-tighter cursor-pointer hover:opacity-80 transition-all active:scale-95"
         >
           FR4NC
         </button>
 
         {/* DESKTOP MENU */}
-        <ul ref={menuRef} className="hidden lg:flex gap-10 xl:gap-20 mr-10 lg:mr-20">
+        <ul ref={menuRef} className="hidden lg:flex items-center gap-12 xl:gap-16">
           {navItems.map((item) => (
-            <li key={item.id}>
+            <li key={item.id} className="relative py-2">
               <button
                 onClick={() => scrollToSection(item.id)}
-                className={`navbtn cursor-pointer transition-colors ${activeSection === item.id
-                  ? "text-white font-semibold"
-                  : "text-[var(--text)] hover:text-white"
+                className={`text-sm font-bold tracking-widest uppercase cursor-pointer transition-all duration-300 ${activeSection === item.id
+                  ? "text-white"
+                  : "text-white/40 hover:text-white/80"
                   }`}
               >
                 {item.label}
               </button>
+              {/* Active Dot/Indicator */}
+              {activeSection === item.id && (
+                <div
+                  className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-400 to-cyan-300 rounded-full"
+                  style={{ boxShadow: '0 0 8px #4fa0de' }}
+                />
+              )}
             </li>
           ))}
         </ul>
 
         {/* MOBILE MENU BUTTON */}
         <div className="lg:hidden">
-          <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+            className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white transition-all active:scale-90"
+          >
             {isOpen ? (
-              <HiX className="w-8 h-8 text-white" />
+              <HiX className="w-6 h-6" />
             ) : (
-              <HiMenu className="w-8 h-8 text-white" />
+              <HiMenu className="w-6 h-6" />
             )}
           </button>
         </div>
@@ -165,31 +179,33 @@ export default function Navbar() {
 
       {/* MOBILE MENU */}
       <div
-        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+        className={`lg:hidden overflow-hidden transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
           }`}
       >
-        <ul className="bg-[var(--primary)] flex flex-col items-center gap-4 py-4 rounded-b-2xl">
-          {navItems.map((item, index) => (
-            <li
-              key={item.id}
-              className={`transition-all duration-300 ${isOpen
-                ? "translate-y-0 opacity-100"
-                : "-translate-y-4 opacity-0"
-                }`}
-              style={{ transitionDelay: `${(index + 1) * 50}ms` }}
-            >
-              <button
-                onClick={() => scrollToSection(item.id)}
-                className={`navbtn transition-colors ${activeSection === item.id
-                  ? "text-white font-semibold"
-                  : "text-[var(--text)] hover:text-gray-200"
+        <div className="px-4 pb-8 pt-2">
+          <ul className="bg-white/5 backdrop-blur-2xl border border-white/10 flex flex-col items-center gap-2 py-6 rounded-2xl">
+            {navItems.map((item, index) => (
+              <li
+                key={item.id}
+                className={`w-full px-8 transition-all duration-500 ${isOpen
+                  ? "translate-y-0 opacity-100"
+                  : "-translate-y-4 opacity-0"
                   }`}
+                style={{ transitionDelay: `${(index + 1) * 50}ms` }}
               >
-                {item.label}
-              </button>
-            </li>
-          ))}
-        </ul>
+                <button
+                  onClick={() => scrollToSection(item.id)}
+                  className={`w-full py-3 rounded-xl text-xs font-black uppercase tracking-[0.2em] transition-all ${activeSection === item.id
+                    ? "bg-white text-black"
+                    : "text-white/60 hover:text-white hover:bg-white/5"
+                    }`}
+                >
+                  {item.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </nav>
   );

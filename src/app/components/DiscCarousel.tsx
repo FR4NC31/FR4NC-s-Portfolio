@@ -22,6 +22,18 @@ interface DiscCarouselProps {
 export default function DiscCarousel({ projects }: DiscCarouselProps) {
     const [index, setIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
+    const [screenWidth, setScreenWidth] = useState(0);
+
+    // Track screen width for dynamic spacing
+    useEffect(() => {
+        const handleResize = () => setScreenWidth(window.innerWidth);
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const isMobile = screenWidth < 768;
+    const isSmallMobile = screenWidth < 480;
 
     // Auto-rotation logic
     useEffect(() => {
@@ -49,32 +61,32 @@ export default function DiscCarousel({ projects }: DiscCarouselProps) {
 
     return (
         <div
-            className="relative w-full max-w-[1400px] mx-auto min-h-[550px] flex items-center justify-center overflow-visible py-10"
+            className="relative w-full max-w-[1400px] mx-auto min-h-[500px] sm:min-h-[550px] flex items-center justify-center overflow-visible py-10"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-b from-blue-500/5 to-purple-500/5 rounded-full blur-3xl -z-10 pointer-events-none" />
 
-            {/* Navigation Buttons */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-0 z-50">
+            {/* Navigation Buttons - Smaller and closer on mobile */}
+            <div className="absolute top-1/2 -translate-y-1/2 left-0 sm:left-4 z-50">
                 <button
                     onClick={handlePrev}
-                    className="p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-white backdrop-blur-md transition-all group"
+                    className="p-2 sm:p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-white backdrop-blur-md transition-all group"
                 >
-                    <HiChevronLeft className="w-8 h-8 group-hover:-translate-x-1 transition-transform" />
+                    <HiChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 group-hover:-translate-x-1 transition-transform" />
                 </button>
             </div>
-            <div className="absolute top-1/2 -translate-y-1/2 right-0 z-50">
+            <div className="absolute top-1/2 -translate-y-1/2 right-0 sm:right-4 z-50">
                 <button
                     onClick={handleNext}
-                    className="p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-white backdrop-blur-md transition-all group"
+                    className="p-2 sm:p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-white backdrop-blur-md transition-all group"
                 >
-                    <HiChevronRight className="w-8 h-8 group-hover:translate-x-1 transition-transform" />
+                    <HiChevronRight className="w-6 h-6 sm:w-8 sm:h-8 group-hover:translate-x-1 transition-transform" />
                 </button>
             </div>
 
             {/* The 3D Disc Layout */}
-            <div className="relative w-full h-full flex items-center justify-center perspective-[2000px] preserve-3d">
+            <div className="relative w-full h-full flex items-center justify-center perspective-[1500px] sm:perspective-[2000px] preserve-3d">
                 <AnimatePresence initial={false} mode="popLayout">
                     {projects.map((project, i) => {
                         // Calculate relative position to the center (active) item
@@ -86,16 +98,18 @@ export default function DiscCarousel({ projects }: DiscCarouselProps) {
                         if (distance < -total / 2) distance += total;
 
                         const isActive = distance === 0;
-                        const isVisible = Math.abs(distance) <= 1; // Focus on 3 main cards (Center, Left, Right)
+
+                        // Responsive visibility logic
+                        const isVisible = isSmallMobile ? Math.abs(distance) === 0 : Math.abs(distance) <= 1;
 
                         if (!isVisible) return null;
 
-                        // Animation Variants for hyper-smooth transitions
-                        const rotateY = distance * 25; // Smoother angle
-                        const translateZ = Math.abs(distance) * -150;
-                        const translateX = distance * 360;
-                        const scale = isActive ? 1.05 : 0.75;
-                        const opacity = 1 - Math.abs(distance) * 0.4;
+                        // Responsive Animation Values
+                        const rotateY = isSmallMobile ? 0 : distance * (isMobile ? 15 : 25);
+                        const translateZ = Math.abs(distance) * (isMobile ? -100 : -150);
+                        const translateX = distance * (isSmallMobile ? 0 : (isMobile ? 280 : 360));
+                        const scale = isActive ? 1.05 : (isMobile ? 0.7 : 0.75);
+                        const opacity = isSmallMobile && !isActive ? 0 : (1 - Math.abs(distance) * 0.4);
                         const blur = isActive ? 0 : 4;
 
                         return (

@@ -30,11 +30,11 @@ export default function ProjectCard({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="group relative flex flex-col w-[300px] sm:w-[350px] md:w-[400px] h-[450px] bg-[var(--primary)] rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 shadow-2xl shrink-0"
+            className="group relative flex flex-col w-[280px] min-[400px]:w-[320px] sm:w-[350px] md:w-[400px] h-[400px] sm:h-[450px] bg-[var(--primary)] rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 shadow-2xl shrink-0"
         >
             {/* Category Tag */}
-            <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
-                <span className="text-white text-xs font-semibold uppercase tracking-wider">
+            <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-white border border-white/20 rounded-full">
+                <span className="text-black text-xs font-semibold uppercase tracking-wider">
                     {category}
                 </span>
             </div>

@@ -1,9 +1,15 @@
-import React from 'react'
+"use client";
 
-export default function footer() {
+import React from "react";
+
+export default function Footer() {
   return (
-    <div>
-      <h1>all rights reserved 2077</h1>
-    </div>
-  )
+    <footer className="bg-[var(--base)] py-10 border-t border-white/5">
+      <div className="max-w-[1400px] mx-auto px-6 text-center">
+        <p className="text-gray-500 text-sm">
+          &copy; {new Date().getFullYear()} FR4NC. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  );
 }
