@@ -1,102 +1,33 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "motion/react";
-import { HiExternalLink, HiCode } from "react-icons/hi";
+import { HiArrowUpRight } from "react-icons/hi2";
+import type { Project } from "@/app/data/portfolio";
 
-interface ProjectCardProps {
-    title: string;
-    description: string;
-    category: "Website" | "Mobile";
-    image: string;
-    tags: string[];
-    link?: string;
-    repo?: string;
-}
-
-export default function ProjectCard({
-    title,
-    description,
-    category,
-    image,
-    tags,
-    link,
-    repo,
-}: ProjectCardProps) {
-    return (
-        <motion.div
-            layout
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.3 }}
-            className="group relative flex flex-col w-[280px] min-[400px]:w-[320px] sm:w-[350px] md:w-[400px] h-[400px] sm:h-[450px] bg-[var(--primary)] rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 shadow-2xl shrink-0"
-        >
-            {/* Category Tag */}
-            <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-white border border-white/20 rounded-full">
-                <span className="text-black text-xs font-semibold uppercase tracking-wider">
-                    {category}
-                </span>
-            </div>
-
-            {/* Image Container */}
-            <div className="relative w-full h-56 overflow-hidden">
-                <Image
-                    src={image}
-                    alt={title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--primary)] to-transparent opacity-60" />
-            </div>
-
-            {/* Content */}
-            <div className="flex flex-col flex-1 p-6">
-                <h3 className="text-white text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">
-                    {title}
-                </h3>
-                <p className="text-[var(--text)] text-sm line-clamp-3 mb-4">
-                    {description}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-6 mt-auto">
-                    {tags.map((tag) => (
-                        <span
-                            key={tag}
-                            className="text-[10px] font-medium text-gray-400 bg-white/5 border border-white/10 px-2 py-0.5 rounded-md"
-                        >
-                            {tag}
-                        </span>
-                    ))}
-                </div>
-
-                {/* Links */}
-                <div className="flex gap-4 border-t border-white/10 pt-4 mt-auto">
-                    {link && (
-                        <a
-                            href={link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm font-medium"
-                        >
-                            <HiExternalLink className="w-4 h-4" />
-                            Live Demo
-                        </a>
-                    )}
-                    {repo && (
-                        <a
-                            href={repo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm font-medium"
-                        >
-                            <HiCode className="w-4 h-4" />
-                            Source Code
-                        </a>
-                    )}
-                </div>
-            </div>
-        </motion.div>
-    );
+export default function ProjectCard({ title, description, category, image, imageAlt, imageLayout, coverLabel, featured, comingSoon, tags, focus, link, repo, number = 1 }: Project & { number?: number }) {
+  return (
+    <article className={`project-card${featured ? " project-card-featured" : ""}${comingSoon ? " project-card-upcoming" : ""}${imageLayout === "mobile-showcase" ? " project-card-mobile-showcase" : ""}`}>
+      <div className="project-image">
+        {image ? (
+          <Image src={image} alt={imageAlt ?? title} fill loading={featured ? "eager" : "lazy"} sizes={featured ? "(min-width: 1024px) calc(100vw - 21rem), 90vw" : "(min-width: 1280px) 40vw, (min-width: 768px) 44vw, 90vw"} className="object-contain" />
+        ) : (
+          <div className="project-cover" aria-hidden="true">
+            <span className="eyebrow">{title}</span>
+            <span className="project-cover-title">{coverLabel ?? title}</span>
+            <span className="project-cover-caption">{category} project</span>
+          </div>
+        )}
+        <span className="project-number" aria-hidden="true">0{number} / {category}</span>
+      </div>
+      <div className="project-content">
+        <div className="project-title-row"><h3>{title}</h3><span className="project-type">{category}</span></div>
+        {tags.length > 0 && <div className="project-meta"><span>{tags.join(" / ")}</span></div>}
+        <p className="project-description">{description}</p>
+        {focus && <p className="project-focus"><span>Focus</span>{focus}</p>}
+        {(link || repo || (imageLayout === "mobile-showcase" && image)) && <div className="project-links">
+          {imageLayout === "mobile-showcase" && image && <a href={image} target="_blank" rel="noopener noreferrer" className="text-link">View app preview <HiArrowUpRight aria-hidden="true" /><span className="sr-only"> — {title} (opens in a new tab)</span></a>}
+          {link && <a href={link} target="_blank" rel="noopener noreferrer" className="text-link">Live website <HiArrowUpRight aria-hidden="true" /><span className="sr-only"> — {title} (opens in a new tab)</span></a>}
+          {repo && <a href={repo} target="_blank" rel="noopener noreferrer" className="text-link">View code <HiArrowUpRight aria-hidden="true" /><span className="sr-only"> — {title} (opens in a new tab)</span></a>}
+        </div>}
+      </div>
+    </article>
+  );
 }
