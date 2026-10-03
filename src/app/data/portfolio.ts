@@ -1,77 +1,94 @@
 export const profile = {
-  name: "Francis Edgard O. Ibañez",
-  email: "francisedgard16@gmail.com",
-  phone: "+63 992 978 4038",
-  phoneHref: "tel:+639929784038",
+  name: "Francis Edgard Ibañez",
+  title: "Full Stack & Mobile Developer",
   github: "https://github.com/FR4NC31",
+  linkedin: "https://www.linkedin.com/in/francis-edgard-ibanez-84752b398/",
 };
 
 export interface Project {
   title: string;
   description: string;
   category: "Website" | "Mobile" | "Capstone";
+  label: string;
   image?: string;
   imageAlt?: string;
-  imageLayout?: "mobile-showcase";
-  coverLabel?: string;
-  featured?: boolean;
-  comingSoon?: boolean;
+  imageLayout?: "mobile-showcase" | "phone-mockup";
+  status?: string;
+  releaseNote?: string;
   tags: string[];
-  focus?: string;
   link?: string;
+  linkLabel?: string;
   repo?: string;
 }
 
 export const projects: Project[] = [
   {
-    title: "Molave Street Barbers",
-    description: "MLV St. is my mobile app capstone for Molave Street Barbers, introducing the barbershop through a branded welcome experience.",
+    title: "Vitaqera",
+    label: "Nutrition & Food Tracking App",
+    category: "Mobile",
+    description: "A mobile nutrition and food-tracking application focused on simple meal logging, progress tracking, and an offline-first experience.",
+    imageAlt: "Vitaqera nutrition and food tracking app logo",
+    imageLayout: "phone-mockup",
+    status: "In Development",
+    releaseNote: "Stable Release Coming Soon",
+    tags: ["React Native", "Expo", "TypeScript", "Hono", "PostgreSQL", "Neon", "SQLite", "Drizzle ORM"],
+  },
+  {
+    title: "MLV St. — Appointment and Reservation System",
+    label: "Capstone Project · Mobile Application",
     category: "Capstone",
-    image: "/projects/MLVSt/mlv-st-mobile-showcase.png",
-    imageAlt: "MLV St. mobile app mockup showing its white splash screen and barbershop welcome screen with Log in and Sign Up buttons",
+    description: "A mobile appointment and reservation system developed as a capstone project for Molave Street Barbers, allowing customers to access services, manage accounts, and schedule appointments digitally.",
+    image: "/projects/MLVSt/mlv-st-mobile-showcase.webp",
+    imageAlt: "MLV St. mobile app preview showing the splash screen and customer login and sign-up entry points",
     imageLayout: "mobile-showcase",
-    featured: true,
-    tags: [],
-    focus: "Splash screen and onboarding, with login and sign-up entry points.",
+    tags: ["React Native", "Expo", "Supabase", "OAuth 2.0"],
+    link: "https://molavestreetbarbers.vercel.app/",
+    linkLabel: "Visit our website",
   },
   {
     title: "PrimeArcDevs",
-    description: "A website presenting a software development agency and its services. Built with React, Vite, and Tailwind CSS.",
+    label: "Frontend Web Application",
     category: "Website",
+    description: "A responsive software development agency website built to present services, projects, and company information through a modern web interface.",
     image: "/projects/PrimeArcDevs/primearcdevs.jpg",
     imageAlt: "PrimeArcDevs development agency website preview",
     tags: ["React", "Vite", "Tailwind CSS"],
-    focus: "Agency presentation and frontend interface development.",
     link: "https://primearcdevs.vercel.app/",
     repo: "https://github.com/FR4NC31/PrimeArcDevs",
   },
   {
     title: "Beauty Company",
-    description: "A beauty brand showcase built with HTML and CSS, with a focus on product imagery, typography, and page layout.",
+    label: "Freelance Project · Frontend Website",
     category: "Website",
+    description: "My first freelance web project, built for a beauty-focused brand with an emphasis on responsive layout, visual presentation, and a clean user-facing experience.",
     image: "/projects/BeautyCompany/beauty.jpg",
     imageAlt: "Beauty Company website preview showing its brand and product presentation",
-    tags: ["HTML", "CSS"],
-    focus: "Visual hierarchy and styling with core web technologies.",
+    tags: ["HTML5", "CSS3"],
     repo: "https://github.com/FR4NC31/beauty_company",
-  },
-  {
-    title: "Coming Soon",
-    description: "A new mobile app. More details coming soon.",
-    category: "Mobile",
-    coverLabel: "Coming soon.",
-    comingSoon: true,
-    tags: [],
   },
 ];
 
 export const skillGroups = [
-  { title: "Frontend", skills: ["React", "Next.js", "Tailwind CSS"], context: "Client applications and responsive web interfaces." },
-  { title: "Backend & APIs", skills: ["Node.js", "Express.js", "Hono", "Bun"], context: "Server-side application logic and API development." },
-  { title: "Database & ORM", skills: ["NeonDB", "Firebase", "Supabase", "MongoDB", "Drizzle ORM"], context: "Database schemas, queries, and application data access." },
-  { title: "Deployment", skills: ["Render", "Railway", "Vercel", "Cloudflare", "Netlify"], context: "Taking applications from local development to hosted environments." },
-  { title: "Mobile development", skills: ["React Native", "Expo"], context: "Mobile applications as part of my full stack toolkit." },
-  { title: "Foundations", skills: ["HTML", "CSS", "JavaScript", "TypeScript"], context: "Core web technologies and languages used across my stack." },
-  { title: "Development & testing", skills: ["Git", "GitHub", "Vitest", "Jest", "Maestro", "Bruno", "Bun", "Vite"], context: "Version control, development tooling, and testing across the application." },
-  { title: "AI tools", skills: ["ChatGPT", "Claude", "OpenCode"], context: "AI tools in my development workflow." },
+  { title: "Frontend", skills: ["React", "TypeScript", "Vite", "Next.js"], context: "Responsive web interfaces and client applications." },
+  { title: "Mobile", skills: ["React Native", "Expo"], context: "Mobile applications for iOS and Android." },
+  { title: "Backend", skills: ["Node.js", "Express.js", "Hono", "Bun"], context: "Application logic, backend services, and APIs." },
+  { title: "Databases & ORM", skills: ["PostgreSQL", "Neon", "MongoDB", "SQLite", "Drizzle ORM"], context: "Data models, queries, and local storage." },
+  { title: "Auth & State/Data", skills: ["Clerk", "Zustand", "TanStack Query"], context: "Authentication, application state, and server data." },
+  { title: "Testing", skills: ["Vitest", "Maestro"], context: "Unit tests and mobile end-to-end testing." },
+  { title: "Developer Tools", skills: ["Git", "GitHub", "Bruno"], context: "Version control, collaboration, and API testing." },
 ];
+
+export const additionalSkills = ["Firebase", "Supabase", "Tailwind CSS", "Jest", "Postman", "Netlify", "Render", "Figma"];
+
+export const experience = {
+  role: "Software Engineer Intern",
+  company: "SOCIA I.T. Solutions",
+  period: "Jan 2026 – Apr 2026",
+  project: "Assigned to the Lootbx Project",
+  responsibilities: [
+    "Contributed to production-level mobile app features using React Native and Expo",
+    "Translated Figma designs into responsive, reusable components",
+    "Refactored code to improve performance, maintainability, and code quality",
+    "Managed EAS Build workflows to support QA testing and development builds",
+  ],
+};

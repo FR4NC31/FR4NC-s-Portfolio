@@ -56,7 +56,7 @@ export default function IntroAnimation({ children }: { children: ReactNode }) {
           <div className="intro-wordmark">
             {Array.from("FR4NC.").map((letter, index) => <span className="intro-letter" key={index}>{letter}</span>)}
           </div>
-          <p className="intro-caption">Full Stack Developer</p>
+          <p className="intro-caption">Full Stack &amp; Mobile Developer</p>
           <span className="intro-rule" />
         </div>
       </div>

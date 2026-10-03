@@ -6,9 +6,10 @@ import { profile } from "@/app/data/portfolio";
 
 const navItems = [
   { label: "Home", id: "home" },
-  { label: "Projects", id: "projects" },
   { label: "About", id: "about" },
-  { label: "Toolkit", id: "skills" },
+  { label: "Projects", id: "projects" },
+  { label: "Skills", id: "skills" },
+  { label: "Experience", id: "experience" },
   { label: "Contact", id: "contact" },
 ];
 
@@ -19,10 +20,10 @@ export default function Navbar() {
 
   useEffect(() => {
     const updateSection = () => {
-      const current = [...navItems].reverse().find(({ id }) => {
-        const element = document.getElementById(id);
-        return element && element.getBoundingClientRect().top <= window.innerHeight * 0.35;
-      });
+      const current = navItems
+        .map(({ id }) => ({ id, top: document.getElementById(id)?.getBoundingClientRect().top ?? Infinity }))
+        .filter(({ top }) => top <= window.innerHeight * 0.35)
+        .sort((a, b) => b.top - a.top)[0];
       const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
       setActiveSection(atBottom ? "contact" : current?.id ?? "home");
     };
