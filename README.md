@@ -36,10 +36,25 @@ diagnostics, select the workspace TypeScript version and restart its TypeScript 
 Vitaqera is explicitly in development. Its card does not link to a private repository
 or show invented app screenshots. The other projects retain their supplied previews.
 
-The contact form is UI only: it uses native required-field and email validation,
-prevents submission, preserves the entered message, and announces that delivery is
-not available yet. There is no API route, email integration, credential, or new
-environment variable. GitHub and LinkedIn are available for contact.
+The contact form uses native required-field and email validation and posts its
+name, email, subject, and message to the existing `/api/contact` route. It disables
+the submit button while sending, clears the fields after a successful response,
+and preserves the entered message when a request fails. Status messages are
+announced to assistive technology. The route handles delivery through the existing
+server-side Nodemailer configuration. GitHub and LinkedIn remain available for contact.
+
+Delivery requires real values for `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`,
+and `CONTACT_TO_EMAIL` in the existing local environment file. Empty values and
+template placeholders are rejected before an SMTP connection is attempted. The
+server logs only the affected variable names or SMTP error codes; the form shows
+the route’s public error message and retains the message for a retry.
+
+For Gmail, use the real sending Gmail address as `SMTP_USER`, a Google App Password
+as `SMTP_PASS`, and the intended recipient as `CONTACT_TO_EMAIL`. App Passwords
+require 2-Step Verification; see [Google’s setup instructions](https://support.google.com/accounts/answer/185833?hl=en).
+Restart the development server after updating the environment file.
+Port 465 uses implicit TLS, while port 587 uses STARTTLS as documented by
+[Nodemailer](https://nodemailer.com/smtp).
 
 ## Supplied assets
 
